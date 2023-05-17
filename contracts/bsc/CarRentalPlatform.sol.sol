@@ -12,5 +12,11 @@ contract CarRentalPlatform {
  address private owner;
 
  //Total Payments
- uint private totatlPayments
+ uint private totatlPayments;
+
+ //user struct
+
+ struct User{
+    address walletAddress;
+ }
 }
