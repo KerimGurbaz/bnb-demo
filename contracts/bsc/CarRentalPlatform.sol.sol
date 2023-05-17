@@ -10,4 +10,7 @@ contract CarRentalPlatform {
 
  //Owner
  address private owner;
+
+ //Total Payments
+ uint private totatlPayments
 }
