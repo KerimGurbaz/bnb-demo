@@ -7,4 +7,7 @@ contract CarRentalPlatform {
  //Counter
  using Counters for Counters.Counter;
  Counters.Counter private _counter;
+
+ //Owner
+ address private owner;
 }
