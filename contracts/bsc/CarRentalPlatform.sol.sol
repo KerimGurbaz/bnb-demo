@@ -18,5 +18,8 @@ contract CarRentalPlatform {
 
  struct User{
     address walletAddress;
+    string name;
+    string lastname;
+    uint rentedCardId;
  }
 }
