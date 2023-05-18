@@ -12,7 +12,7 @@ contract CarRentalPlatform {
  address private owner;
 
  //Total Payments
- uint private totatlPayments;
+ uint private totalPayments;
 
  //user struct
  struct User{
@@ -59,5 +59,16 @@ contract CarRentalPlatform {
  //car mapping
  mapping(uint => Car) private cars;
 
- 
+ // constructor
+ constructor(){
+  owner = msg.sender;
+  totalPayments = 0;
+ }
+
+ //Modifiers
+ //onlyOwner
+ modifier onlyOwner(){
+  require(msg.sender == owner, "Only the owner can call this function");
+  _;
+ }
 }
