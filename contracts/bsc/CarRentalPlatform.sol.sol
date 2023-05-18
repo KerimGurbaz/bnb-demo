@@ -43,5 +43,7 @@ contract CarRentalPlatform {
  }
 
  //events
- event CarAdded(uint indexed id, string name, stringimgUrl);
+ event CarAdded(uint indexed id, string name, string imgUrl, uint rentFee, uint saleFee);
+ event CarMetadataEdited(uint indexed id, string name, string imgUrl, uint rentFee, uint saleFee);
+ event CarStatusEdited(uint indexed id, Status status);
 }
