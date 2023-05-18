@@ -46,4 +46,13 @@ contract CarRentalPlatform {
  event CarAdded(uint indexed id, string name, string imgUrl, uint rentFee, uint saleFee);
  event CarMetadataEdited(uint indexed id, string name, string imgUrl, uint rentFee, uint saleFee);
  event CarStatusEdited(uint indexed id, Status status);
+ event UserAdded(address indexed walletAddress, string name, string lastname);
+ event Deposit(address indexed walletAddress, uint amount);
+ event CheckOut(address indexed walletAddress, uint indexed carId);
+ event CheckIn(address indexed walletAddress, uint indexed carId);
+ event PaymentMade(address indexed walletAddress, uint amount);
+ event BalanceWithdrawn(address indexed walletAddress, uint amount);
+
+ //user mapping
+ mapping(address => User) private users;
 }
