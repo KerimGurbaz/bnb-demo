@@ -55,4 +55,9 @@ contract CarRentalPlatform {
 
  //user mapping
  mapping(address => User) private users;
+
+ //car mapping
+ mapping(uint => Car) private cars;
+
+ 
 }
