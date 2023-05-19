@@ -71,4 +71,30 @@ contract CarRentalPlatform {
   require(msg.sender == owner, "Only the owner can call this function");
   _;
  }
+
+//  FUNCTIONS
+//Execute functions
+
+//Set owner #onlyOwner
+function setOwner(address _newOwner) external onlyOwner{
+  owner = _newOwner;
+}
+
+//addUser #nonExisting
+function addUser(string calldata name, string calldata lastname) external{
+  require(!isUser(msg.sender), "User already exists");
+  users[msg.sender] = User(msg.sender, name, lastname, 0,0,0,0);
+
+  emit UserAdded(msg.sender, users[msg.sender].name, users[msg.sender].lastname);
+
+}
+
+
+
+
+
+
+
+
+
 }
