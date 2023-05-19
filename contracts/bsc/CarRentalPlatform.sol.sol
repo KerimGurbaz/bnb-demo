@@ -128,6 +128,21 @@ function addCar(string calldata name, string calldata url, uint rent, uint sale)
     emit CarStatusEdited(id, status);
   }
 
+  function checkOut(uint id) external{
+    require(isUser(msg.sender), "User does not exist!");
+    require(cars[id].status == Status.Available, "Car is not Available for use");
+    require(users[msg.sender].rentedCardId == 0 , "User has already rented a car");
+    require(users[msg.sender].debt == 0, "User has an outstanding debt!");
+
+    users[msg.sender].start = block.timestamp;
+    users[msg.sender].rentedCardId = id;
+    cars[id].status = Status.InUse;
+
+    emit CheckOut(msg.sender, id);
+  }
+
+
+
 
 
 
