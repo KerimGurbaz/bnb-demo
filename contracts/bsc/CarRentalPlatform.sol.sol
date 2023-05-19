@@ -19,7 +19,7 @@ contract CarRentalPlatform {
     address walletAddress;
     string name;
     string lastname;
-    uint rentedCardId;
+    uint rentedCarId;
     uint balance;
     uint debt;
     uint start;
@@ -131,14 +131,32 @@ function addCar(string calldata name, string calldata url, uint rent, uint sale)
   function checkOut(uint id) external{
     require(isUser(msg.sender), "User does not exist!");
     require(cars[id].status == Status.Available, "Car is not Available for use");
-    require(users[msg.sender].rentedCardId == 0 , "User has already rented a car");
+    require(users[msg.sender].rentedCarId == 0 , "User has already rented a car");
     require(users[msg.sender].debt == 0, "User has an outstanding debt!");
 
     users[msg.sender].start = block.timestamp;
-    users[msg.sender].rentedCardId = id;
+    users[msg.sender].rentedCarId = id;
     cars[id].status = Status.InUse;
 
     emit CheckOut(msg.sender, id);
+  }
+
+  //checkIn #existingUser #userHasRentedACar
+  function checkIn() external {
+    require(isUser(msg.sender), "User does not exist");
+    uint rentedCarId = users[msg.sender].rentedCarId;
+    require(rentedCarId !=0, "User has not rented a car");
+
+    uint usedSeconds = block.timestamp - users[msg.sender].start;
+    uint rentFee = cars[rentedCarId].rentFee;
+    users[msg.sender].debt += calculateDebt(usedSeconds, rentFee);
+
+    users[msg.sender].rentedCarId = 0;
+    users[msg.sender].start = 0;
+    cars[rentedCarId].status = Status.Available;
+
+    emit CheckIn(msg.sender, rentedCarId);
+
   }
 
 
