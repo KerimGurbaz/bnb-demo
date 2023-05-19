@@ -97,9 +97,28 @@ function addCar(string calldata name, string calldata url, uint rent, uint sale)
   cars[counter] = Car(counter, name, url, Status.Available, rent, sale);
 
   emit CarAdded(counter, cars[counter].name, cars[counter].imgUrl, cars[counter].rentFee, cars[counter].saleFee);
+
 }
 
+  //editCarMetadata #onlyOwner #existingCar
+ function editCarMetadata(uint id, string calldata name, string calldata imgUrl, uint rentFee, uint saleFee) external onlyOwner{
+  require(cars[id].id !=0, "Car with given ID does not exist");
+  Car storage car = cars[id];
+  if(bytes(name).length !=0){
+    car.name = name;
+  }
+  if(bytes(imgUrl).length !=0){
+    car.imgUrl = imgUrl;
+  }
+  if(rentFee > 0){
+    car.rentFee = rentFee;
+  }
+  if(saleFee > 0){
+    car.saleFee = saleFee;
+  }
 
+  emit CarMetadataEdited(id, car.name, car.imgUrl, car.rentFee, car.saleFee);
+  }
 
 
 
