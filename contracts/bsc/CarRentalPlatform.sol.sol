@@ -120,6 +120,14 @@ function addCar(string calldata name, string calldata url, uint rent, uint sale)
   emit CarMetadataEdited(id, car.name, car.imgUrl, car.rentFee, car.saleFee);
   }
 
+  //editCarStatus #onlyOwner #existingCar
+  function editCarStatus(uint id, Status status) external onlyOwner{
+    require(cars[id].id !=0, "Car with given ID does not exist");
+    cars[id].status = status;
+
+    emit CarStatusEdited(id, status);
+  }
+
 
 
 
