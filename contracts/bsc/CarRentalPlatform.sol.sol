@@ -159,6 +159,13 @@ function addCar(string calldata name, string calldata url, uint rent, uint sale)
 
   }
 
+  // deposit
+
+  function deposit() external payable{
+    require(isUser(msg.sender), "User does not exist");
+    users[msg.sender].balance += msg.value;
+  }
+
 
 
 
