@@ -175,8 +175,16 @@ function addCar(string calldata name, string calldata url, uint rent, uint sale)
     uint debt = users[msg.sender].debt;
     uint balance = users[msg.sender].balance;
 
-    require(debt > 0, "User has no debt to pay");
+    require(debt > 0, "User has debt to pay");
     require(balance >= debt, "User has insufficient balance");
+
+     unchecked{
+      users[msg.sender].balance -=debt; 
+     }
+     totalPayments += debt;
+     users[msg.sender].debt = 0;
+
+     emit PaymentMade(msg.sender, debt);
   }
 
 
