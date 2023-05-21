@@ -159,12 +159,27 @@ function addCar(string calldata name, string calldata url, uint rent, uint sale)
 
   }
 
-  // deposit
+  // deposit #existingUser
 
   function deposit() external payable{
     require(isUser(msg.sender), "User does not exist");
     users[msg.sender].balance += msg.value;
+
+    emit Deposit(msg.sender, msg.value);
   }
+
+  //makePayment #existingUser #existingDebt #suffiecientBalance
+
+  function makePayment() external {
+    require(isUser(msg.sender), "User does not exist");
+    uint debt = users[msg.sender].debt;
+    uint balance = users[msg.sender].balance;
+
+    require(debt > 0, "User has no debt to pay");
+    require(balance >= debt, "User has insufficient balance");
+  }
+
+
 
 
 
