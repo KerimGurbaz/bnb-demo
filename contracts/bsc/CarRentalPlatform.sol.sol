@@ -203,6 +203,19 @@ function addCar(string calldata name, string calldata url, uint rent, uint sale)
     require(success, "Transfer failed");
   }
 
+  //withdrawOwnerBlanace #onlyOwner
+
+  function withdrawOwnerBalance(uint amount) external onlyOwner{
+    require(totalPayments >= amount, "Insufficient contract balance to withdraw");
+
+    (bool success) = owner.call{value:amount}("");
+    require(success, "Transfer failed");
+
+    unchecked{
+      totalPayments -= amount;
+    }
+  }
+
 
 
 
