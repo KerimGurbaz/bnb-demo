@@ -2,7 +2,7 @@
 pragma solidity ^0.8.7;
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-contract CarRentalPlatform {
+contract CarRentalPlatform is ReentrancyGuard{
  //DATA 
 
  //Counter
@@ -186,6 +186,21 @@ function addCar(string calldata name, string calldata url, uint rent, uint sale)
      users[msg.sender].debt = 0;
 
      emit PaymentMade(msg.sender, debt);
+  }
+
+  //withdrawBalance #existingUser
+
+  function withdrawBalance(uint amount) external nonReentrant{
+    require(isUser(msg.sender), "User does not exist");
+    uint balance = users[msg.sender].balance;
+    require(balance >= amount, "Insufficient balance to withdraw");
+
+    unchecked{
+      users[msg.sender].balance -= amount;
+    }
+
+    (bool success) = msg.sender.call{value: amount}("");
+    require(success, "Transfer failed");
   }
 
 
