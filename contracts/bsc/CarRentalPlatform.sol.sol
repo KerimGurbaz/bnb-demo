@@ -216,6 +216,19 @@ function addCar(string calldata name, string calldata url, uint rent, uint sale)
     }
   }
 
+  //Query Functions
+
+  //getOwner
+  function getOwner() external view returns(address){
+    return owner;
+  }
+
+  //isUser
+  function isUser(address walletAddress) private view returns(bool){
+    return users[walletAddress].walletAddress != 0;
+    
+  }
+
 
 
 
