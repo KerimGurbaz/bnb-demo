@@ -234,6 +234,12 @@ function addCar(string calldata name, string calldata url, uint rent, uint sale)
     return users[walletAddress];
   }
 
+  // getCar
+  function getCar(uint id) external view returns(Car memory){
+    require(cars[id].id !=0, "Car does not exist");
+    return cars[id];
+  }
+
 
 
 
