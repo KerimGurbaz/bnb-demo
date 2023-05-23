@@ -262,6 +262,12 @@ function addCar(string calldata name, string calldata url, uint rent, uint sale)
     return carsWithStatus;
   }
 
+  //calculateDebt
+  function calculateDebt(uint usedSeconds, uint rentFee) private pure returns(uint){
+    uint usedMinutes = usedSeconds / 60;
+    return usedMinutes * rentFee; 
+  }
+
 
 
 
