@@ -199,7 +199,7 @@ function addCar(string calldata name, string calldata url, uint rent, uint sale)
       users[msg.sender].balance -= amount;
     }
 
-    (bool success) = msg.sender.call{value: amount}("");
+    (bool success,) = msg.sender.call{value: amount}("");
     require(success, "Transfer failed");
   }
 
@@ -208,7 +208,7 @@ function addCar(string calldata name, string calldata url, uint rent, uint sale)
   function withdrawOwnerBalance(uint amount) external onlyOwner{
     require(totalPayments >= amount, "Insufficient contract balance to withdraw");
 
-    (bool success) = owner.call{value:amount}("");
+    (bool success,) = owner.call{value:amount}("");
     require(success, "Transfer failed");
 
     unchecked{
@@ -225,7 +225,7 @@ function addCar(string calldata name, string calldata url, uint rent, uint sale)
 
   //isUser
   function isUser(address walletAddress) private view returns(bool){
-    return users[walletAddress].walletAddress != 0;
+    return users[walletAddress].walletAddress != address(0) ;
   }
 
   //getUser
@@ -267,6 +267,24 @@ function addCar(string calldata name, string calldata url, uint rent, uint sale)
     uint usedMinutes = usedSeconds / 60;
     return usedMinutes * rentFee; 
   }
+
+  //getCurrentCount
+  function getCurrentCount() external view returns(uint){
+    return _counter.current();
+  }
+
+  //getContractBalance
+  function getContractBalance()external view onlyOwner returns(uint){
+    return address(this).balance;
+  }
+
+  //getTotalPayment
+
+  function getTotalPayments() external view onlyOwner returns(uint){
+    return totalPayments;
+  }
+
+
 
 
 
