@@ -226,7 +226,12 @@ function addCar(string calldata name, string calldata url, uint rent, uint sale)
   //isUser
   function isUser(address walletAddress) private view returns(bool){
     return users[walletAddress].walletAddress != 0;
-    
+  }
+
+  //getUser
+  function getUser(address walletAddress) external view returns(User memory ){
+    require(isUser(walletAddress), "User does not exist");
+    return users[walletAddress];
   }
 
 
