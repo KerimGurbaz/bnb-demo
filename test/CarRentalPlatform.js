@@ -25,10 +25,26 @@ contract("CarRentalPlatform", accounts =>{
       assert.equal(car.rentFee, 10, "Problem with rent fee");
       assert.equal(car.saleFee, 50000, "Problem with sale fee");
 
-    })
+    });
+  });
+
+  describe("Check out and check in car", ()=>{
+    it("Check out  a car", async()=>{
+      await carRentalPlatform.addUser("Alice", "Smith", {from:user1});
+      await carRentalPlatform.addCar("Tesla Model S", "example url", 10, 50000, {from:owner});
+      await carRentalPlatform.checkOut(1, {from:user1});
+
+      const user = await carRentalPlatform.getUser(user1);
+      assert.equal(user.rentedCardID, 1, "User could not check out the car");
+    });
+
+    it("Checks in  a car", async()=>{
+      await carRentalPlatform.addUser("Alice", "Smith", {from:user1});
+      await carRentalPlatform.addCar("Tesla Model S", "example url", 10, 50000, {from:owner});
+      await carRentalPlatform.checkOut(1, {from:user1});
 
 
-  })
+  });
 
 
 
