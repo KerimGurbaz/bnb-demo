@@ -284,16 +284,4 @@ function addCar(string calldata name, string calldata url, uint rent, uint sale)
     return totalPayments;
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
 }

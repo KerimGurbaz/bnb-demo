@@ -8,7 +8,7 @@ contract("CarRentalPlatform", (accounts) => {
     carRentalPlatform = await CarRentalPlatform.new();
   });
 
-  descripe("Add user and car", () => {
+  describe("Add user and car", () => {
     it("adds a new user", async () => {
       await carRentalPlatform.addUser("Alice", "Smith", { from: user1 });
       const user = await carRentalPlatform.getUser(user1);
@@ -104,7 +104,7 @@ contract("CarRentalPlatform", (accounts) => {
     });
   });
 
-  descrie("edit car", () => {
+  describe("edit car", () => {
     it("should edit an existing car's metadata with valid parameters", async () => {
       await carRentalPlatform.addCar(
         "Tesla Model S",
